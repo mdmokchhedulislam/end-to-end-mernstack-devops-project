@@ -10,7 +10,7 @@ jobs:
 
     steps:
     -  name: check out github code
-       uses: actions/actions/checkout@v3
+       uses: actions/checkout@v3
     -  name: message
-       run: echo "github code checkout"
+       run: echo "github code checkout done"
 
