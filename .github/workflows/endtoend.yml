@@ -1,0 +1,14 @@
+name: End to end mern stack devops project
+
+on:
+  push:
+    branches: [ "main" ]
+    
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    -  name: test
+       run: echo "hey this is check github action"
+
