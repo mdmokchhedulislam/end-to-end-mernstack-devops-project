@@ -5,10 +5,12 @@ on:
     branches: [ "main" ]
     
 jobs:
-  check:
+  checkout:
     runs-on: ubuntu-latest
 
     steps:
-    -  name: test
-       run: echo "hey this is check github action"
+    -  name: check out github code
+       uses: actions/actions/checkout@v3
+    -  name: message
+       run: echo "github code checkout"
 
