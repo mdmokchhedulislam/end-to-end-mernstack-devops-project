@@ -30,9 +30,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
-    environment:
-      VITE_API_LINK: http://localhost:5000/api
+      - "3000:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
