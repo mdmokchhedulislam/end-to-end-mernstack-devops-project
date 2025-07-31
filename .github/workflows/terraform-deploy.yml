@@ -1,11 +1,8 @@
 name: Terraform Deploy
 
+
 on:
-  push:
-    paths:
-      - 'infra/**'
-    branches:
-      - main
+  workflow_dispatch: 
 
 jobs:
   terraform:
@@ -44,4 +41,3 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        # 👉 NOTE: You can add condition like `if: github.event_name == 'push'`
