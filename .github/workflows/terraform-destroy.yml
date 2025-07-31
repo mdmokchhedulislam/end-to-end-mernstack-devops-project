@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: infra  # your terraform folder path
+        working-directory: infra/terrafrom
 
     steps:
       - name: Checkout Repository
