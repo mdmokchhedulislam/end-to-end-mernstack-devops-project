@@ -48,8 +48,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1 
 
-      - name: Terraform Init
-        run: terraform init
+      - name: Terraform init
+        if: ${{ github.event.inputs.action == 'init' }}
+        run: terraform init 
 
       - name: Terraform Plan
         if: ${{ github.event.inputs.action == 'plan' }}
