@@ -31,7 +31,11 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true)
     try {
+      console.log("login user");
+      
       const result = await login(data).unwrap()
+      console.log("result is", result);
+      
       const user = verifyToken(result.data.accessToken) as TUser
 
       if (result?.success) {
