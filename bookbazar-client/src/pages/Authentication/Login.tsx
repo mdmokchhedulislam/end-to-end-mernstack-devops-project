@@ -247,9 +247,7 @@ const Login = () => {
               <Link to="/register" className="text-purple-400 hover:text-purple-300 transition-colors font-medium">
                 Create an account
               </Link>
-            </p>
-
-           
+            </p>           
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Home/>,
       },
       {
-        path: "/all-product",
+        path: "api/product/all-product",
         element: <AllProducts />,
       },
       {
@@ -49,11 +49,11 @@ const router = createBrowserRouter([
         element: <PaymentFailed />,
       },
       {
-        path: "/login",
+        path: "api/auth/login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "api/auth/register",
         element: <Register />,
       },
       {
