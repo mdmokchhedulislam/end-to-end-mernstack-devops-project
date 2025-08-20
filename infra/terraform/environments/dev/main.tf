@@ -22,11 +22,11 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "../../../terrafrom/modules/vpc"
+  source = "../../../terraform/modules/vpc"
 }
 
 module "eks" {
-  source                 = "../../../terrafrom/modules/eks"
+  source                 = "../../../terraform/modules/eks"
   vpc_subnet_ids         = [module.vpc.private_subnet_id, module.vpc.public_subnet_id]
   worker_node_subnet_ids = [module.vpc.private_subnet_id]
 }
