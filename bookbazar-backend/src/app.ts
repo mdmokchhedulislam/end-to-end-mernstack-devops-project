@@ -24,8 +24,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      'https://bookbazzar-online-ph-a4.vercel.app',
-      'http://localhost:5173',
+      'http://52.206.120.212:8080'
     ],
     credentials: true,
   }),
