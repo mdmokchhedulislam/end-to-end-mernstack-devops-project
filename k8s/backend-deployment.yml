@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: your-dockerhub-username/crud-backend:latest
+          image: mokchhedul/project-backend:latest
           ports:
             - containerPort: 8080
           env:
@@ -115,6 +115,6 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 8080
   type: ClusterIP
