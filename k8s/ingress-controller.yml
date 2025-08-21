@@ -2,12 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: retail-ingress
-  namespace: default
   annotations:
-    kubernetes.io/ingress.class: "nginx"  # Nginx Ingress Controller ব্যবহার করতে
-    nginx.ingress.kubernetes.io/rewrite-target: /  # যদি URL রিরাইট দরকার হয়
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"  # যদি HTTPS রিডাইরেক্ট না চান
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx   
   rules:
   - http:
       paths:
@@ -17,11 +17,11 @@ spec:
           service:
             name: backend-service
             port:
-              number: 3000
+              number: 8080
       - path: /
         pathType: Prefix
         backend:
           service:
             name: frontend-service
             port:
-              number: 8080
+              number: 3000

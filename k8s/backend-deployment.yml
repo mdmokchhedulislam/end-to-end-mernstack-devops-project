@@ -92,17 +92,17 @@ spec:
                   name: backend-secrets
                   key: JWT_REFRESH_EXPIRES_IN
 
-            - name: STORE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secrets
-                  key: STORE_ID
+            # - name: STORE_ID
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: backend-secrets
+            #       key: STORE_ID
 
-            - name: STORE_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secrets
-                  key: STORE_PASS
+            # - name: STORE_PASS
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: backend-secrets
+            #       key: STORE_PASS
 ---
 # -----------------------------------
 # Backend Service

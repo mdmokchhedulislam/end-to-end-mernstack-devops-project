@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image:  mokchhedul/project-frontend:latest
+        image: mokchhedul/project-frontend:latest
         ports:
         - containerPort: 3000
 ---
@@ -28,4 +28,4 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-  type: LoadBalancer
+  type: ClusterIP
