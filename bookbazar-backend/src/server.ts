@@ -5,7 +5,8 @@ import app from './app';
 
 let server: Server;
 
-
+const DATABASE_URL="mongodb://mongo-service:27017/mydb"
+const PORT ="8080"
 async function main() {
   try {
 
