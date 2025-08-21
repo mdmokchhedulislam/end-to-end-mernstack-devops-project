@@ -29,7 +29,7 @@ resource "aws_subnet" "private_subnet" {
   tags = {
     Name = "${var.project_name}-private"
     "kubernetes.io/cluster/cluster"    = "shared"
-    "kubernetes.io/role/elb"           = "1"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
@@ -42,6 +42,7 @@ resource "aws_internet_gateway" "project_gateway" {
 }
 
 resource "aws_eip" "project_nati_eip" {
+  domain = "vpc"
 
 }
 
@@ -72,7 +73,7 @@ resource "aws_route_table" "private_route_table" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.project_nat_gateway.id
+    nat_gateway_id = aws_nat_gateway.project_nat_gateway.id
   }
 
   tags = {
