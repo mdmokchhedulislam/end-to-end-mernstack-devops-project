@@ -52,7 +52,7 @@ jobs:
       - name: Setup SSH key
         run: |
           echo "${{ secrets.BASTION_SSH_KEY }}" | base64 -d > ostad.pem
-          chmod 600 ostad.pem
+          chmod 400 ostad.pem
 
       # Run Ansible playbook on Bastion host
       - name: Run Ansible Playbook
