@@ -4,9 +4,6 @@
   become: yes
   vars:
     aws_region: "us-east-1"
-    eks_cluster_name: "project"
-    aws_access_key: "YOUR_AWS_ACCESS_KEY"
-    aws_secret_key: "YOUR_AWS_SECRET_KEY"
 
   tasks:
 
@@ -72,8 +69,8 @@
       dest: /home/ubuntu/.aws/credentials
       content: |
         [default]
-        aws_access_key_id={{ aws_access_key }}
-        aws_secret_access_key={{ aws_secret_key }}
+        aws_access_key_id="${{ secrets.aws_access_key }}"
+        aws_secret_access_key="{{ secrets.aws_secret_key }}"
       owner: ubuntu
       group: ubuntu
       mode: '0600'
