@@ -38,3 +38,28 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/project-backend:latest
       - name: notify
         run: echo frontend and backend image puss in github
+
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Bastion host SSH key prepare
+      - name: Setup SSH key
+        run: |
+          echo "${{ secrets.BASTION_SSH_KEY }}" | base64 -d > ostad.pem
+          chmod 600 ostad.pem
+
+      # Run Ansible playbook on Bastion host
+      - name: Run Ansible Playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: infra/ansible/check-playbook.yml
+          inventory: infra/ansible/inventory/aws_ec2.yml
+          key: ostad.pem
+          options: |
+            -u ubuntu
