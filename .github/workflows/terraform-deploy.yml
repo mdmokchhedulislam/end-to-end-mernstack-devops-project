@@ -1,31 +1,13 @@
 name: Terraform Deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Choose environment (dev/stage/prod)"
-        required: true
-        default: "dev"
-        type: choice
-        options:
-          - dev
-          - stage
-          - prod
-      action:
-        description: "Terraform action (plan/apply/destroy)"
-        required: true
-        default: "plan"
-        type: choice
-        options:
-          - plan
-          - apply
-          - destroy
-          - init
+  push:
+    branches:
+      - main   
 
 jobs:
   terraform:
-    name: "Terraform ${{ github.event.inputs.action }} (${{ github.event.inputs.environment }})"
+    name: "Terraform"
     runs-on: ubuntu-latest
 
     defaults:
