@@ -1,4 +1,4 @@
-name: crud operation
+name: book bazar application
 
 on:
   push:
