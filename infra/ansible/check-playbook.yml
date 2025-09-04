@@ -55,10 +55,11 @@
   - name: Print kubectl version
     debug:
       var: kubectl_version.stdout
-      
+
   - name: Install dependencies
-    run: |
+    ansible.builtin.shell: |
       pip install boto3 botocore
+
 
 
   - name: Create AWS directory
