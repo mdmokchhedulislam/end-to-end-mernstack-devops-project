@@ -1,6 +1,6 @@
 ---
 - name: Setup Bastion Host with AWS CLI, kubectl, and EKS access
-  hosts: bastion-host
+  hosts: all
   become: yes
   vars:
     aws_region: "us-east-1"
