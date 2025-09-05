@@ -56,24 +56,24 @@
     debug:
       var: kubectl_version.stdout
       
-  - name: Create AWS directory
-    file:
-      path: /home/ubuntu/.aws
-      state: directory
-      owner: ubuntu
-      group: ubuntu
-      mode: '0700'
+  # - name: Create AWS directory
+  #   file:
+  #     path: /home/ubuntu/.aws
+  #     state: directory
+  #     owner: ubuntu
+  #     group: ubuntu
+  #     mode: '0700'
 
-  - name: Configure AWS credentials
-    copy:
-      dest: /home/ubuntu/.aws/credentials
-      content: |
-        [default]
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-      owner: ubuntu
-      group: ubuntu
-      mode: '0600'
+  # - name: Configure AWS credentials
+  #   copy:
+  #     dest: /home/ubuntu/.aws/credentials
+  #     content: |
+  #       [default]
+  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+  #     owner: ubuntu
+  #     group: ubuntu
+  #     mode: '0600'
 
   - name: Configure AWS config
     copy:
