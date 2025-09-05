@@ -61,28 +61,21 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: us-east-1
 
-
-    # Setup Python for Ansible dynamic inventory
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
-         python-version: '3.12'
+        python-version: '3.12'
 
     - name: Upgrade pip
       run: python -m pip install --upgrade pip
 
-    - name: Install AWS dependencies
-      run: |
-        pip install boto3 botocore
-    - name: Test AWS dynamic inventory
-      run: ansible-inventory -i infra/ansible/inventory/aws_ec2.yml --list
+    - name: Install Ansible with AWS support
+      run: pip install "ansible[amazon]" boto3 botocore
 
-    # Run Ansible playbook on Bastion host
     - name: Run Ansible Playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        playbook: infra/ansible/check-playbook.yml
-        inventory: infra/ansible/inventory/aws_ec2.yml
-        key: ostad.pem
-        options: |
-          -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
+      run: |
+         ansible-playbook infra/ansible/check-playbook.yml \
+         -i infra/ansible/inventory/aws_ec2.yml \
+         -u ubuntu --become \
+         --private-key ostad.pem \
+         --ssh-extra-args "-o StrictHostKeyChecking=no"
