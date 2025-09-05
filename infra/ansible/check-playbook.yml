@@ -69,8 +69,8 @@
       dest: /home/ubuntu/.aws/credentials
       content: |
         [default]
-        aws_access_key_id="${{ secrets.aws_access_key }}"
-        aws_secret_access_key="{{ secrets.aws_secret_key }}"
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
       owner: ubuntu
       group: ubuntu
       mode: '0600'
@@ -80,7 +80,7 @@
       dest: /home/ubuntu/.aws/config
       content: |
         [default]
-        region={{ aws_region }}
+        region=us-east-1
         output=json
       owner: ubuntu
       group: ubuntu
