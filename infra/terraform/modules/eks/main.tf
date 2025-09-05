@@ -34,7 +34,7 @@ resource "aws_instance" "bastion_host" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "Bastion-Host"
+    Name = "bastion-host"
   }
 }
 
