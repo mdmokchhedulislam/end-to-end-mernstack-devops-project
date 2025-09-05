@@ -63,4 +63,7 @@ jobs:
           inventory: infra/ansible/inventory/aws_ec2.yml
           key: ostad.pem
           options: |
-             -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
+            -u ubuntu
+            --ssh-extra-args="-o StrictHostKeyChecking=no"
+            --become
+
