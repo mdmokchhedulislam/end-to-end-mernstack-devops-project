@@ -39,44 +39,47 @@ jobs:
       - name: notify
         run: echo frontend and backend image puss in github
 
-
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Bastion host SSH key prepare
-      - name: Setup SSH key
-        run: |
+    # Bastion host SSH key prepare
+    - name: Setup SSH key
+      run: |
+        echo "${{ secrets.BASTION_SSH_KEY }}" > ostad.pem
+        chmod 600 ostad.pem
 
-          echo "${{ secrets.BASTION_SSH_KEY }}" > ostad.pem
-          chmod 600 ostad.pem
+    # (Optional) Configure AWS credentials if dynamic inventory needs it
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-          
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-           python-version: '3.12'
+    # Setup Python for Ansible dynamic inventory
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+         python-version: '3.12'
 
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
 
-      - name: Install AWS dependencies
-        run: |
-          pip install boto3 botocore
+    - name: Install AWS dependencies
+      run: |
+        pip install boto3 botocore
 
-
-      - name: Run Ansible Playbook
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          playbook: infra/ansible/check-playbook.yml
-          directory: ./
-          key: ${{ secrets.BASTION_SSH_KEY }}
-          inventory: infra/ansible/inventory/aws_ec2.yml
-          options: |
-            -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
-
-
+    # Run Ansible playbook on Bastion host
+    - name: Run Ansible Playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: infra/ansible/check-playbook.yml
+        inventory: infra/ansible/inventory/aws_ec2.yml
+        key: ostad.pem
+        options: |
+          -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
