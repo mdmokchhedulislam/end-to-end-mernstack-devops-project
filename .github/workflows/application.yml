@@ -59,8 +59,9 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: infra/ansible/check-playbook.yml
-          inventory: infra/ansible/inventory/aws_ec2.yml
+          directory: ./
           key: ${{ secrets.BASTION_SSH_KEY }}
+          inventory: infra/ansible/inventory/aws_ec2.yml
           options: |
             -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
 
