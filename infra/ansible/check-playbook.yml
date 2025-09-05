@@ -92,7 +92,7 @@
       AWS_ACCESS_KEY_ID: "{{ aws_access_key }}"
       AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
     command: >
-      aws eks update-kubeconfig --name {{ eks_cluster_name }} --region {{ aws_region }}
+      aws eks update-kubeconfig --name project --region us-east-1
 
   - name: Verify EKS cluster access
     become: no
