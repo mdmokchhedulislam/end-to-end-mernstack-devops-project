@@ -60,8 +60,6 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: us-east-1
-    - name: Test AWS dynamic inventory
-      run: ansible-inventory -i infra/ansible/inventory/aws_ec2.yml --list
 
 
     # Setup Python for Ansible dynamic inventory
@@ -76,6 +74,8 @@ jobs:
     - name: Install AWS dependencies
       run: |
         pip install boto3 botocore
+    - name: Test AWS dynamic inventory
+      run: ansible-inventory -i infra/ansible/inventory/aws_ec2.yml --list
 
     # Run Ansible playbook on Bastion host
     - name: Run Ansible Playbook
