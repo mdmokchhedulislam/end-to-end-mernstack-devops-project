@@ -4,6 +4,8 @@
   become: yes
   vars:
     aws_region: "us-east-1"
+    aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
+    aws_secret_key: "{{ lookup('env', 'AWS_SECRET_KEY') }}"
 
   tasks:
 
@@ -55,7 +57,7 @@
   - name: Print kubectl version
     debug:
       var: kubectl_version.stdout
-      
+
   - name: Create AWS directory
     file:
       path: /home/ubuntu/.aws
@@ -71,6 +73,7 @@
         [default]
         aws_access_key_id = {{ aws_access_key }}
         aws_secret_access_key = {{ aws_secret_key }}
+        region = {{ aws_region }}
       owner: ubuntu
       group: ubuntu
       mode: '0600'
@@ -78,7 +81,7 @@
   - name: Update kubeconfig for EKS
     become: no
     command: >
-      aws eks update-kubeconfig --name project --region us-east-1
+      aws eks update-kubeconfig --name project --region {{ aws_region }}
 
   - name: Verify EKS cluster access
     become: no
