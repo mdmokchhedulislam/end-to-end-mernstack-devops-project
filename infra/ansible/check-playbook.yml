@@ -56,41 +56,27 @@
     debug:
       var: kubectl_version.stdout
       
-  # - name: Create AWS directory
-  #   file:
-  #     path: /home/ubuntu/.aws
-  #     state: directory
-  #     owner: ubuntu
-  #     group: ubuntu
-  #     mode: '0700'
-
-  # - name: Configure AWS credentials
-  #   copy:
-  #     dest: /home/ubuntu/.aws/credentials
-  #     content: |
-  #       [default]
-  #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-  #       aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-  #     owner: ubuntu
-  #     group: ubuntu
-  #     mode: '0600'
-
-  - name: Configure AWS config
-    copy:
-      dest: /home/ubuntu/.aws/config
-      content: |
-        [default]
-        region=us-east-1
-        output=json
+  - name: Create AWS directory
+    file:
+      path: /home/ubuntu/.aws
+      state: directory
       owner: ubuntu
       group: ubuntu
-      mode: '0644'
+      mode: '0700'
+
+  - name: Configure AWS credentials
+    copy:
+      dest: /home/ubuntu/.aws/credentials
+      content: |
+        [default]
+        aws_access_key_id = {{ aws_access_key }}
+        aws_secret_access_key = {{ aws_secret_key }}
+      owner: ubuntu
+      group: ubuntu
+      mode: '0600'
 
   - name: Update kubeconfig for EKS
     become: no
-    # environment:
-    #   AWS_ACCESS_KEY_ID: "{{ secrets.aws_access_key }}"
-    #   AWS_SECRET_ACCESS_KEY: "{{ secrets.aws_secret_key }}"
     command: >
       aws eks update-kubeconfig --name project --region us-east-1
 
