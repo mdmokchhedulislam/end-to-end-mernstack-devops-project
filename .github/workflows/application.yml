@@ -50,8 +50,8 @@ jobs:
     # Bastion host SSH key prepare
     - name: Setup SSH key
       run: |
-        echo "${{ secrets.BASTION_SSH_KEY }}" > ostad.pem
-        chmod 600 ostad.pem
+        echo "${{ secrets.BASTION_SSH_KEY }}" > mainaccount.pem
+        chmod 600 mainaccount.pem
 
     # (Optional) Configure AWS credentials if dynamic inventory needs it
     - name: Configure AWS credentials
@@ -77,5 +77,5 @@ jobs:
          ansible-playbook infra/ansible/check-playbook.yml \
          -i infra/ansible/inventory/aws_ec2.yml \
          -u ubuntu --become \
-         --private-key ostad.pem \
+         --private-key mainaccount.pem \
          --ssh-extra-args "-o StrictHostKeyChecking=no"
