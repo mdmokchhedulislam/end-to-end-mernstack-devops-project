@@ -55,15 +55,13 @@ jobs:
           echo "${{ secrets.BASTION_SSH_KEY }}" > ostad.pem
           chmod 600 ostad.pem
 
-      # Run Ansible playbook on Bastion host
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: infra/ansible/check-playbook.yml
           inventory: infra/ansible/inventory/aws_ec2.yml
-          key: ostad.pem
+          key: ${{ secrets.BASTION_SSH_KEY }}
           options: |
-            -u ubuntu
-            --ssh-extra-args="-o StrictHostKeyChecking=no"
-            --become
+            -u ubuntu --ssh-extra-args="-o StrictHostKeyChecking=no" --become
+
 
