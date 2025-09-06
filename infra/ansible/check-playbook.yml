@@ -99,5 +99,6 @@
       mode: '0644'
 
   - name: Apply Mongo Deployment
+    become: no
     ansible.builtin.shell: kubectl apply -f /home/ubuntu/k8s/mongo-deployment.yml
 
