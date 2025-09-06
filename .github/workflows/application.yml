@@ -82,9 +82,6 @@ jobs:
          -u ubuntu --become \
          --private-key mainaccount.pem \
          --ssh-extra-args "-o StrictHostKeyChecking=no"
-    - name: deploy databse
-      run: |
-        kubectl apply -f ./k8s/mongo-deployment.yml
-       
+
 
 

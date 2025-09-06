@@ -91,3 +91,13 @@
   - name: Show EKS nodes
     debug:
       var: eks_nodes.stdout
+
+  - name: Copy k8s manifests
+    ansible.builtin.copy:
+      src: ./k8s/
+      dest: /home/ubuntu/k8s/
+      mode: '0644'
+
+  - name: Apply Mongo Deployment
+    ansible.builtin.shell: kubectl apply -f /home/ubuntu/k8s/mongo-deployment.yml
+
