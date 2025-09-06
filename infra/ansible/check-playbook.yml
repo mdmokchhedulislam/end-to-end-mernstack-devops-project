@@ -99,6 +99,18 @@
       mode: '0644'
 
   - name: Apply Mongo Deployment
-    become: no
     ansible.builtin.shell: kubectl apply -f /home/ubuntu/k8s/mongo-deployment.yml
+    register: mongo_result
+    ignore_errors: no
+
+  - name: Apply Backend Deployment
+    ansible.builtin.shell: kubectl apply -f /home/ubuntu/k8s/backend-deployment.yml
+    register: backend_result
+    when: mongo_result.rc == 0
+    ignore_errors: no
+
+  - name: Apply Frontend Deployment
+    ansible.builtin.shell: kubectl apply -f /home/ubuntu/k8s/frontend-deployment.yml
+    when: mongo_result.rc == 0 and backend_result.rc == 0
+    ignore_errors: no
 
