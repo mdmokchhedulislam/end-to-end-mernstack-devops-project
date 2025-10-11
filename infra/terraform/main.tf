@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "my-linked-tf-test-bucket2"
+    bucket  = "my-linked-tf-test-bucket33"
     key     = "data/terraform.tfstate"
     region  = "us-east-1"
     encrypt = true
