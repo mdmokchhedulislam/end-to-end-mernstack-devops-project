@@ -10,7 +10,7 @@ variable "bastion_ami_id" {
 }
 variable "bastion_key_name" {
   type = string
-  default = "mainaccount"
+  default = "secondaccount"
 }
 
 variable "public_subnet_id" {

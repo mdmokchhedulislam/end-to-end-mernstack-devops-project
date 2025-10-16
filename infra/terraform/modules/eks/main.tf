@@ -1,4 +1,6 @@
-
+provider "aws" {
+  region  = "us-east-1"
+}
 
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"
@@ -146,6 +148,12 @@ resource "aws_eks_node_group" "worker_node" {
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.worker_node_role.arn
   subnet_ids      = var.worker_node_subnet_ids
+
+  instance_types = ["m7i-flex.large"]  
+
+  remote_access {
+    ec2_ssh_key = "secondaccount"  
+  }
 
   scaling_config {
     desired_size = var.node_group_desired_size
