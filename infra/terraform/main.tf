@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"   # ✅ Stable LTS version (6.x Windows-এ crash করে)
+      version = "~> 5.0"   # Stable LTS version (6.x Windows-এ crash করে)
     }
   }
 
@@ -18,7 +18,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# ✅ Pass provider explicitly to avoid orphan state issue
+# Pass provider explicitly to avoid orphan state issue
 module "vpc" {
   source = "./modules/vpc"
 
