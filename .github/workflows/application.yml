@@ -80,7 +80,7 @@ jobs:
          ansible-playbook infra/ansible/check-playbook.yml \
          -i infra/ansible/inventory/aws_ec2.yml \
          -u ubuntu --become \
-         --private-key mainaccount.pem \
+         --private-key secondaccount.pem \
          --ssh-extra-args "-o StrictHostKeyChecking=no"
 
 
