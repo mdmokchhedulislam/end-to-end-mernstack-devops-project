@@ -53,7 +53,7 @@ jobs:
     # Bastion host SSH key prepare
     - name: Setup SSH key
       run: |
-        echo "${{ secrets.BASTION_SSH_KEY }}" > mainaccount.pem
+        echo "${{ secrets.BASTION_SSH_KEY }}" > secondaccount.pem
         chmod 600 mainaccount.pem
 
     # (Optional) Configure AWS credentials if dynamic inventory needs it
