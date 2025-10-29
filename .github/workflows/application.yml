@@ -54,7 +54,7 @@ jobs:
     - name: Setup SSH key
       run: |
         echo "${{ secrets.BASTION_SSH_KEY }}" > secondaccount.pem
-        chmod 600 mainaccount.pem
+        chmod 600 secondaccount.pem
 
     # (Optional) Configure AWS credentials if dynamic inventory needs it
     - name: Configure AWS credentials
