@@ -8,7 +8,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 spec:
-  ingressClassName: alb   # Deprecated annotation এর পরিবর্তে এটা ব্যবহার করুন
+  ingressClassName: alb   
   rules:
     - http:
         paths:
@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend-service   # এখানে তোমার Service এর নাম
+                name: frontend-service   
                 port:
-                  number: 80             # Service এর port
+                  number: 80             
