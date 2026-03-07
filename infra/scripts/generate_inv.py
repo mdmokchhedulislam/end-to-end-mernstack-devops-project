@@ -37,7 +37,7 @@ def write_inventory(ip):
     if not os.path.exists(target_dir):
         os.makedirs(target_dir, exist_ok=True)
 
-    # YAML ফরম্যাটে আউটপুট তৈরি
+  
     content = f"""all:
   hosts:
     bastion:
@@ -62,8 +62,7 @@ if __name__ == "__main__":
     
     if public_ip:
         write_inventory(public_ip)
-        print("\nClosing in 10 seconds...")
-        time.sleep(10)
+     
     else:
         print("\nERROR: Could not fetch valid output.")
         input("\nPress Enter to exit...")
