@@ -1,0 +1,7 @@
+[bastion]
+bastion_node ansible_host=44.201.240.125
+
+[all:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/mokchhedul_islam/.ssh/secondaccount.pem
+ansible_python_interpreter=/usr/bin/python3

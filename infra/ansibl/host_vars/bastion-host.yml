@@ -1,2 +1,11 @@
 ansible_user: ubuntu
 ansible_ssh_private_key_file: secondaccount.pem
+
+
+# all:
+#   hosts:
+#     bastion:
+#       ansible_host: 44.202.149.94
+#       ansible_user: ubuntu
+#       ansible_ssh_private_key_file: /home/mokchhedul_islam/.ssh/secondaccount.pem
+

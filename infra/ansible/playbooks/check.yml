@@ -1,0 +1,6 @@
+---
+- name: Install Nginx on Bastion
+  hosts: bastion
+  become: true
+  roles:
+    - myrole

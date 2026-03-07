@@ -1,0 +1,17 @@
+---
+# tasks file for myrole
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+  notify: restart_nginx
+
+- name: Ensure Nginx is running
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
