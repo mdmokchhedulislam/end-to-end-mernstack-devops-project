@@ -1,4 +1,4 @@
-name: Terraform Deploy
+name: create infa
 
 on:
   workflow_dispatch:

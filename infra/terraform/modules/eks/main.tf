@@ -1,6 +1,4 @@
-provider "aws" {
-  region  = "us-east-1"
-}
+
 
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"
@@ -43,7 +41,7 @@ resource "aws_instance" "bastion_host" {
 
 
 
-# Cluster SG
+
 resource "aws_security_group" "eks_cluster_sg" {
   name   = "${var.cluster_name}-eks-cluster-sg"
   vpc_id = var.vpc_id
@@ -96,6 +94,8 @@ resource "aws_iam_role_policy_attachment" "controller_AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = aws_iam_role.controller_node_role.name
 }
+
+
 
 resource "aws_eks_cluster" "eks_controller_cluster" {
   name     = var.cluster_name
