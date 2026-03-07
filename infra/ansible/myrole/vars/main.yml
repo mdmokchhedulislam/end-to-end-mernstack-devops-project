@@ -1,2 +1,15 @@
 ---
-# vars file for myrole
+aws_region: "us-east-1"
+eks_cluster_name: "project"
+
+aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY') }}"
+aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
+k8s_manifest_dir: "/mnt/c/Users/mokchhedul islam/Desktop/end-to-end-mernstack-devops-project/k8s"
+
+k8s_deployments:
+  - mongo-deployment.yml
+  - backend-deployment.yml
+  - frontend-deployment.yml
+
+max_retries: 5
+retry_delay: 10
