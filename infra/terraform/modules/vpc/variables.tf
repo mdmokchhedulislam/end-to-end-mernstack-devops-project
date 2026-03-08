@@ -1,7 +1,7 @@
 variable "project_name" {
   description = "Project name for tagging"
   type        = string
-  default     = "myproject"
+  default     = "project"
 }
 
 variable "vpc_cidr" {

@@ -11,5 +11,5 @@ k8s_deployments:
   - backend-deployment.yml
   - frontend-deployment.yml
 
-max_retries: 5
-retry_delay: 10
+max_retries: 10
+retry_delay: 15
