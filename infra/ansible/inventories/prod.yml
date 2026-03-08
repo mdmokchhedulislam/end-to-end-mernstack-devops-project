@@ -1,6 +1,20 @@
-all:
-  hosts:
-    bastion:
-      ansible_host: 44.212.9.75
-      ansible_user: ubuntu
-      ansible_ssh_private_key_file: /home/mokchhedul_islam/.ssh/secondaccount.pem
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - us-east-1
+
+filters:
+  instance-state-name: running
+  "tag:Name": bastion
+
+hostnames:
+  - tag:Name
+
+compose:
+  ansible_host: public_ip_address
+
+vars:
+  ansible_user: ubuntu
+  ansible_ssh_private_key_file: secondaccount.pem
+
+strict: False
