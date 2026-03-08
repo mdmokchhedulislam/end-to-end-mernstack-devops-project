@@ -1,53 +1,63 @@
-name: application deployment
+name: Application Deployment
 
 on:
   workflow_dispatch:
     inputs:
       action:
+        description: "Deploy application"
         required: true
         default: "deploy"
 
 jobs:
-  setup-bastion_host:
+  setup-bastion-host:
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.12"
+      # Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
 
-    - name: Install Python dependencies
-      run: |
-        pip install boto3 botocore
+      # Install dependencies
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install ansible boto3 botocore
 
+      # Install AWS Ansible Collection
+      - name: Install Ansible AWS Collection
+        run: |
+          ansible-galaxy collection install amazon.aws
 
-    - name: Setup SSH key
-      run: |
-        echo "${{ secrets.BASTION_SSH_KEY }}" > secondaccount.pem
-        chmod 600 secondaccount.pem
+      # Setup SSH key for bastion
+      - name: Setup SSH Key
+        run: |
+          echo "${{ secrets.BASTION_SSH_KEY }}" > secondaccount.pem
+          chmod 600 secondaccount.pem
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-        aws-region: us-east-1
+      # Configure AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
 
-    - name: Install Ansible
-      run: pip install "ansible[amazon]" boto3 botocore
+      
+      - name: Check Ansible Inventory
+        run: |
+          ansible-inventory -i infra/ansible/inventories/prod.yml --graph
 
-    - name: Run Ansible Playbook
-      run: |
-        ansible-playbook infra/ansible/playbooks/check.yml \
-        -i infra/ansible/inventories/prod.yml \
-        -u ubuntu --become \
-        --private-key secondaccount.pem \
-        --ssh-extra-args "-o StrictHostKeyChecking=no"
+      # Run playbook
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook infra/ansible/playbooks/check.yml \
+            -i infra/ansible/inventories/prod.yml \
+            -u ubuntu \
+            --private-key secondaccount.pem \
+            --ssh-extra-args "-o StrictHostKeyChecking=no"
