@@ -7,4 +7,4 @@
     - ../vars/main.yml
 
   roles:
-    - role: ../roles/myrole
+    - infra/ansible/myrole
