@@ -28,9 +28,6 @@ jobs:
       run: |
         pip install boto3 botocore
 
-    - name: Generate Ansible Inventory
-      run: |
-        python infra/scripts/generate_inv.py
 
     - name: Setup SSH key
       run: |
