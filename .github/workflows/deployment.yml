@@ -47,8 +47,8 @@ jobs:
 
     - name: Run Ansible Playbook
       run: |
-         ansible-playbook -i inventories/prod.yml  playbooks/check.yml  \
-         -i infra/ansible/inventories/prod.yml \
-         -u ubuntu --become \
-         --private-key secondaccount.pem \
-         --ssh-extra-args "-o StrictHostKeyChecking=no"
+        ansible-playbook infra/ansible/playbooks/check.yml \
+        -i infra/ansible/inventories/prod.yml \
+        -u ubuntu --become \
+        --private-key secondaccount.pem \
+        --ssh-extra-args "-o StrictHostKeyChecking=no"
