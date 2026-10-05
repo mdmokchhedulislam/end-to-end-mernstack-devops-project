@@ -4,7 +4,7 @@ regions:
 
 filters:
   instance-state-name: running
-  "tag:Name": "bastion"
+  "tag:Name": "bastion-host"
 
 hostnames:
   - tag:Name
