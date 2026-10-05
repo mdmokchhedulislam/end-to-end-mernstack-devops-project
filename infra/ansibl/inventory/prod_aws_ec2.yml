@@ -1,17 +1,25 @@
-plugin: amazon.aws.aws_ec2
+all:
+  hosts:
+    bastion:
+      ansible_host: 34.200.235.77
+      ansible_user: ubuntu
 
-regions:
-  - us-east-1
 
-filters:
-  instance-state-name: running
-  "tag:Name": "bastion-host"
 
-hostnames:
-  - tag:Name
+# plugin: amazon.aws.aws_ec2
 
-compose:
-  ansible_host: public_ip_address
-  ansible_user: "'ubuntu'"
+# regions:
+#   - us-east-1
 
-strict: false
+# filters:
+#   instance-state-name: running
+#   "tag:Name": "bastion-host"
+
+# hostnames:
+#   - tag:Name
+
+# compose:
+#   ansible_host: public_ip_address
+#   ansible_user: "'ubuntu'"
+
+# strict: false
