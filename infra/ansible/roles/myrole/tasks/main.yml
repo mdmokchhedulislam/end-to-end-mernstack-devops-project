@@ -75,6 +75,10 @@
 - name: Update kubeconfig for EKS
   become: false
   command: aws eks update-kubeconfig --name {{ eks_cluster_name }} --region {{ aws_region }}
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
+    AWS_REGION: "us-east-1"
 
 # Verify EKS cluster access
 - name: Verify EKS cluster access
