@@ -2,8 +2,8 @@
 aws_region: "us-east-1"
 eks_cluster_name: "iips"
 
-aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY') }}"
-aws_secret_key: "{{ lookup('env','AWS_SECRET_KEY') }}"
+aws_access_key: ""
+aws_secret_key: ""
 # k8s_manifest_dir: "/mnt/c/Users/mokchhedul islam/Desktop/end-to-end-mernstack-devops-project/k8s"
 
 # k8s_deployments:
