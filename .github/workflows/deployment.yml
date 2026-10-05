@@ -1,4 +1,4 @@
-name: Application Deployment
+name: bastion_host_configure
 
 on:
   workflow_dispatch:
