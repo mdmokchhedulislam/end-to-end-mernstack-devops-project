@@ -1,6 +1,6 @@
 ---
 - name: Setup Bastion Host
-  hosts: bastion
+  hosts: bastion-host
   become: true
 
   vars_files:

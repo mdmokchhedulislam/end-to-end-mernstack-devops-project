@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       # Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -34,12 +35,6 @@ jobs:
         run: |
           ansible-galaxy collection install amazon.aws
 
-      # Setup SSH key for bastion
-      - name: Setup SSH Key
-        run: |
-          echo "${{ secrets.BASTION_SSH_KEY }}" > iips.pem
-          chmod 600 iips.pem
-
       # Configure AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -48,6 +43,25 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
+      # Setup SSH key
+      - name: Setup SSH Key
+        run: |
+          echo "${{ secrets.BASTION_SSH_KEY }}" > iips.pem
+          chmod 600 iips.pem
+
+      # Check AWS identity
+      - name: Check AWS Credentials
+        run: |
+          aws sts get-caller-identity
+
+      # Check Dynamic Inventory
+      - name: Check Dynamic Inventory
+        working-directory: infra/ansible
+        run: |
+          ansible-inventory \
+            -i inventories/prod_aws_ec2.yml \
+            --graph
+
       # Run Ansible Playbook
       - name: Run Ansible Playbook
         working-directory: infra/ansible
@@ -55,6 +69,5 @@ jobs:
           ansible-playbook \
             -i inventories/prod_aws_ec2.yml \
             playbooks/check.yml \
-            -u ubuntu \
             --private-key "$GITHUB_WORKSPACE/iips.pem" \
             --ssh-extra-args "-o StrictHostKeyChecking=no"
