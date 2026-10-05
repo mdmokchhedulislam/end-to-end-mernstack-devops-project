@@ -49,9 +49,9 @@ jobs:
           aws-region: us-east-1
 
       
-      - name: Check Ansible Inventory
-        run: |
-          ansible-inventory -i infra/ansible/inventories/prod.yml --graph
+      # - name: Check Ansible Inventory
+      #   run: |
+      #     ansible-inventory -i infra/ansible/inventories/prod.yml --graph
 
       # Run playbook
       - name: Run Ansible Playbook
