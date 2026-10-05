@@ -10,7 +10,7 @@ variable "bastion_ami_id" {
 }
 variable "bastion_key_name" {
   type = string
-  default = "secondaccount"
+  default = "iips"
 }
 
 variable "public_subnet_id" {
@@ -22,7 +22,7 @@ variable "public_subnet_id" {
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
-  default     = "project"
+  default     = "iips"
 }
 
 variable "cluster_version" {
