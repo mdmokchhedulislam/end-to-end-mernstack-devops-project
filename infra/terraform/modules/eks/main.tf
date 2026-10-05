@@ -152,7 +152,7 @@ resource "aws_eks_node_group" "worker_node" {
   instance_types = ["m7i-flex.large"]  
 
   remote_access {
-    ec2_ssh_key = "secondaccount"  
+    ec2_ssh_key = "iips"  
   }
 
   scaling_config {
