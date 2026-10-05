@@ -49,6 +49,14 @@
   changed_when: helm_install.rc == 0
 
 
+
+- name: Test AWS credentials
+  env:
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+    AWS_DEFAULT_REGION: us-east-1
+  run: |
+    aws sts get-caller-identity
 # Create AWS directory
 - name: Create AWS directory
   file:
