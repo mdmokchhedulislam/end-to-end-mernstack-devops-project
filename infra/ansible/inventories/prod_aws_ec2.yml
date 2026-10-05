@@ -5,14 +5,13 @@ regions:
 
 filters:
   instance-state-name: running
-  tag:Name: bastion
+  "tag:Name": "bastion-host"
 
 hostnames:
   - tag:Name
 
 compose:
   ansible_host: public_ip_address
-
   ansible_user: "'ubuntu'"
 
 strict: false
