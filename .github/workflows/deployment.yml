@@ -37,7 +37,7 @@ jobs:
       # Setup SSH key for bastion
       - name: Setup SSH Key
         run: |
-          echo "${{ secrets.BASTION_SSH_KEY }}" > secondaccount.pem
+          echo "${{ secrets.BASTION_SSH_KEY }}" > iips.pem
           chmod 600 secondaccount.pem
 
       # Configure AWS Credentials
