@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Deploy application"
+        description: "bastion_host_configure"
         required: true
         default: "deploy"
 

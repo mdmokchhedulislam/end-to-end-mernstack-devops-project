@@ -1,4 +1,4 @@
-name: create infa
+name: create infa_iips
 
 on:
   workflow_dispatch:
