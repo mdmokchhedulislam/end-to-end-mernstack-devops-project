@@ -59,69 +59,49 @@
     owner: ubuntu
     group: ubuntu
     mode: '0700'
-
+    
 # Configure AWS credentials
 - name: Configure AWS credentials
   copy:
     dest: /home/ubuntu/.aws/credentials
-    content: |
-      [default]
-      aws_access_key_id = {{ lookup('env', 'AWS_ACCESS_KEY') }}
-      aws_secret_access_key = {{ lookup('env', 'AWS_SECRET_KEY') }}
     owner: ubuntu
     group: ubuntu
     mode: '0600'
+    content: |
+      [default]
+      aws_access_key_id = {{ AWS_ACCESS_KEY | trim }}
+      aws_secret_access_key = {{ AWS_SECRET_KEY | trim }}
   no_log: true
-  
 
-# Configure AWS region
+# Configure AWS config
 - name: Configure AWS config
   copy:
     dest: /home/ubuntu/.aws/config
-    content: |
-      [default]
-      region = {{ aws_region }}
     owner: ubuntu
     group: ubuntu
     mode: '0600'
+    content: |
+      [default]
+      region = {{ aws_region }}
+      output = json
 
 # Validate AWS credentials
 - name: Validate AWS credentials
   become: false
-  command:
-    cmd: aws sts get-caller-identity
+  command: aws sts get-caller-identity
   environment:
-    AWS_ACCESS_KEY_ID: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
-    AWS_SECRET_ACCESS_KEY: "{{ lookup('env', 'AWS_SECRET_KEY') }}"
-    AWS_DEFAULT_REGION: "{{ aws_region }}"
+    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY | trim }}"
+    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_KEY | trim }}"
+    AWS_REGION: "{{ aws_region }}"
   register: aws_identity
   changed_when: false
 
 # Update kubeconfig for EKS
 - name: Update kubeconfig for EKS
   become: false
-  command:
-    cmd: aws eks update-kubeconfig --name {{ eks_cluster_name }} --region {{ aws_region }}
+  command: aws eks update-kubeconfig --name {{ eks_cluster_name }} --region {{ aws_region }}
   environment:
-    AWS_ACCESS_KEY_ID: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
-    AWS_SECRET_ACCESS_KEY: "{{ lookup('env', 'AWS_SECRET_KEY') }}"
-    AWS_DEFAULT_REGION: "{{ aws_region }}"
+    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY | trim }}"
+    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_KEY | trim }}"
+    AWS_REGION: "{{ aws_region }}"
     HOME: /home/ubuntu
-
-# Verify EKS cluster access
-- name: Verify EKS cluster access
-  become: false
-  command:
-    cmd: kubectl get nodes
-  environment:
-    HOME: /home/ubuntu
-  register: eks_nodes
-  retries: "{{ max_retries }}"
-  delay: "{{ retry_delay }}"
-  until: eks_nodes.rc == 0
-  changed_when: false
-
-# Show EKS nodes
-- name: Show EKS nodes
-  debug:
-    var: eks_nodes.stdout
