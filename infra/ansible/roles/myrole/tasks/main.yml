@@ -69,8 +69,8 @@
     mode: '0600'
     content: |
       [default]
-      aws_access_key_id = {{ AWS_ACCESS_KEY | trim }}
-      aws_secret_access_key = {{ AWS_SECRET_KEY | trim }}
+      aws_access_key_id = {{ aws_access_key | trim }}
+      aws_secret_access_key = {{ aws_secret_key | trim }}
   no_log: true
 
 # Configure AWS config
