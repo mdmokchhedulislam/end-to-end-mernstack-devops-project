@@ -15,4 +15,4 @@ compose:
 
   ansible_user: "'ubuntu'"
 
-strict: False
+strict: false
