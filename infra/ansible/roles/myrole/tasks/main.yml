@@ -59,7 +59,7 @@
     owner: ubuntu
     group: ubuntu
     mode: '0700'
-    
+
 # Configure AWS credentials
 - name: Configure AWS credentials
   copy:
@@ -90,8 +90,8 @@
   become: false
   command: aws sts get-caller-identity
   environment:
-    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY | trim }}"
-    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_KEY | trim }}"
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key | trim }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key | trim }}"
     AWS_REGION: "{{ aws_region }}"
   register: aws_identity
   changed_when: false
@@ -101,7 +101,7 @@
   become: false
   command: aws eks update-kubeconfig --name {{ eks_cluster_name }} --region {{ aws_region }}
   environment:
-    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY | trim }}"
-    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_KEY | trim }}"
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key | trim }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key | trim }}"
     AWS_REGION: "{{ aws_region }}"
     HOME: /home/ubuntu
